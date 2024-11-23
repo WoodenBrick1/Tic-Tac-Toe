@@ -11,19 +11,79 @@
 }
 
 
+body{
+    background-color: #008080;
+}
+
+#display-text
+{
+    margin: 30px auto;
+    width: 800px;
+    height: 80px;
+
+    background-color: rgb(211, 190, 190);
+    color: white;
+    border: 6px solid rgb(70, 50, 50);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 3rem;
+    
+   
+}
+
 #game-container
 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-auto-rows: 250px;
-    background-color: rgb(138, 98, 98);
-    width: 700px;
-    height: 700px;
+    grid-auto-rows: 200px;
 
-    margin: 100px auto;
+    background-color: rgb(138, 98, 98);
+    border: 7px solid #020202;
+
+    width: 600px;
+    height: 600px;
+
+    margin: 50px auto;
+
+
 }
 
 .cell 
 {
     font-size: 5rem;
+    background-color:#2d3a3a;
+    color: white;
+    border: 4px solid #141a1a;
+}
+
+#new-game
+{
+    position: absolute;
+
+    left: 45%;
+
+    width: 200px;
+    height: 50px;
+
+    margin: 0 auto;
+
+    font-size: 1.3rem;
+    font-weight: 600;
+    background-color: rgb(221, 149, 149);
+    border: 3px solid rgb(70, 50, 50);
+}
+
+#new-game:hover
+{
+    background-color: rgb(163, 110, 110);
+    border: 3px solid rgb(36, 26, 26);
+}
+
+#new-game:active
+{
+    background-color: rgb(236, 178, 178);
+    border: 3px solid rgb(95, 77, 77);
 }

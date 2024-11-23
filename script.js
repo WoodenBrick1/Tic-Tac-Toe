@@ -17,13 +17,7 @@ const gameBoard = (function ()
 
     const getCell = (row, column) => board[row][column];
     const getBoard = () => board;
-    /*
-    const printBoard = () => 
-    {
-        const boardCell = board.map((row) => row.map((cell) => cell.getValue()));
-        console.log(boardCell);
-    }
-    */
+    
 
 
     const checkWin = () =>
@@ -97,7 +91,7 @@ const gameBoard = (function ()
 const game = (function ()
 {
 
-    const wonText = document.getElementById("won-text");
+    
 
     const player1Name = "blurp";
     const player2Name = "blop";
@@ -121,13 +115,25 @@ const game = (function ()
 // Place the move of the player on the board
     const makeMove = (row, column) => 
     {
-        console.log(`${currentPlayer.name} turn`);
+        
         const cell = gameBoard.getCell(row, column);
 
+        // Check if you can make the move
         if (cell.getValue() == "")
         {
            cell.setValue(currentPlayer.move);
 
+
+
+           domHandler.changeText(`${currentPlayer.name.toUpperCase()} TURN`);
+           if(!over)
+           {
+
+            if(currentPlayer == players[0])
+                  domHandler.changeColor("red");
+            else
+                  domHandler.changeColor("blue");
+           }
             setCurrentPlayer();
 
         }
@@ -136,13 +142,14 @@ const game = (function ()
         {
             setCurrentPlayer();
 
-            wonText.textContent = `${currentPlayer.name} won`;
+            displayText.textContent = `${currentPlayer.name.toUpperCase()} WON`;
 
             game.changeState();
         }
         else if(gameBoard.checkTie())
         {
-            wonText.textContent = `It's a Tie!`;
+            displayText.textContent = `IT'S A TIE!`;
+            displayText.style.textShadow = "";
 
             game.changeState()
         }
@@ -163,7 +170,7 @@ const game = (function ()
         const board = gameBoard.getBoard();
 
         board.forEach(row => row.forEach(cell => cell.setValue("")))
-        wonText.textContent = "";
+        domHandler.changeText("");
         currentPlayer = players[0];
         if(over)
             changeState();
@@ -216,29 +223,56 @@ const domHandler = (function ()
             container.appendChild(button);
 
             
-            button.addEventListener("click", () => {
+        
 
+            button.addEventListener("mouseenter", () => {
+
+                // If the game is not over, then make the move
+                if (cell.getValue() == "")
+                    button.style.backgroundColor = "#91b3b3";
+            })
+
+            button.addEventListener("mouseleave", () => {
+               
+                button.style.backgroundColor = "#2d3a3a";
+        
+            })
+
+            button.addEventListener("click", () => {
                 // If the game is not over, then make the move
                 if (!game.getState())
                       game.makeMove(indexR, indexC)
                 else
                     game.restart();
             })
-    
+
         })})
 
         
 
-
-
-       // buttons.forEach(button => button.addEventListener("click", () => {console.log("2")}))
         
+
 
     }
 
-    
+    const changeText = (text) => {
 
-    return {renderBoard};
+        document.getElementById("display-text").textContent = text;
+    }
+    
+    const changeColor = (color) =>{
+        displayText = document.getElementById("display-text");
+        if (color == "red");
+            displayText.style.textShadow = "3px 3px 3px rgb(167, 26, 26)";
+        if(color == "blue")
+            displayText.style.textShadow = "3px 3px 3px rgb(55, 59, 97)"
+
+    }
+    return {
+        renderBoard,
+        changeText,
+        changeColor,
+    };
 
 })();
 
