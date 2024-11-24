@@ -8,6 +8,7 @@
 :root
 {
     font-size: 16px;
+
 }
 
 
@@ -86,4 +87,59 @@ body{
 {
     background-color: rgb(236, 178, 178);
     border: 3px solid rgb(95, 77, 77);
+}
+
+
+#names-input
+{
+    position: fixed;
+
+    height: 100%;
+    width: 100%;
+    top: 0;
+
+    background-color: rgba(185, 138, 138, 0.1);
+
+    z-index: 2;
+   
+    backdrop-filter: blur(30px);
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+
+}
+
+#names-container
+{
+    width: 400px;
+    height: 200px;
+
+    background-color:rgb(36, 26, 26);
+    border: 5px solid rgb(12, 11, 11);
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    font-size: 2.5rem;
+    
+
+}
+
+#names-container > input
+{
+    width: 70%;
+    height: 35px;
+
+    font-size: 1.4rem;
+    text-align: center;
+
+    background-color: rgb(214, 214, 214);
 }

@@ -110,7 +110,7 @@ const game = (function ()
     let currentPlayer = players[0];
 
     const setCurrentPlayer = () => currentPlayer = currentPlayer == players[0] ? players[1] : players[0];
-
+    const setPlayerName = (index, name) => players[index].name = name;
 
 // Place the move of the player on the board
     const makeMove = (row, column) => 
@@ -187,6 +187,7 @@ const game = (function ()
         getState,
         changeState,
         restart,
+        setPlayerName,
     }
 })();
 
@@ -248,7 +249,6 @@ const domHandler = (function ()
 
         })})
 
-        
 
         
 
@@ -268,10 +268,45 @@ const domHandler = (function ()
             displayText.style.textShadow = "3px 3px 3px rgb(55, 59, 97)"
 
     }
+
+    let state = 0;
+    const getName = () => 
+    {
+        const nameInput = document.getElementById("name-input");
+
+        nameInput.addEventListener("keydown", event => {
+            if(event.key == "Enter")
+            {
+        
+                const name = nameInput.value;
+                nameInput.value = "";
+
+                if (state == 0)
+                {
+                    game.setPlayerName(0, name);
+                    state = 1;
+                    document.querySelector("#names-container>p").textContent = "Player 2:";
+                    return;
+                }
+                if(state == 1)
+                {
+                    game.setPlayerName(1, name);
+                    
+
+                    document.getElementById("names-input").style.display = "none";
+                }
+                    
+                
+                    
+            }
+        })
+    }
+
     return {
         renderBoard,
         changeText,
         changeColor,
+        getName,
     };
 
 })();
@@ -279,4 +314,7 @@ const domHandler = (function ()
 // Controls the flow of the game
 
 
-domHandler.renderBoard();
+window.addEventListener("DOMContentLoaded", () => {
+    domHandler.renderBoard();
+    domHandler.getName();
+})
